@@ -1,0 +1,1 @@
+class RateLimitException : RuntimeException()
