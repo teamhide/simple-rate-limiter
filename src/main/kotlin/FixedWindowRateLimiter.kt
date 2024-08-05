@@ -7,8 +7,6 @@ class FixedWindowRateLimiter(
 ) : RateLimiter {
     private val requestCount = AtomicInteger(0)
     private val lock = ReentrantLock()
-
-    @Volatile
     private var windowStart = System.currentTimeMillis()
 
     override fun <T> acquire(function: () -> T): T {

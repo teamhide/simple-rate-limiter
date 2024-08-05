@@ -7,8 +7,6 @@ class LeakyBucketRateLimiter(
 ) : RateLimiter {
     private val bucket = AtomicInteger(0)
     private val lock = ReentrantLock()
-
-    @Volatile
     private var lastLeakTime = System.currentTimeMillis()
 
     override fun <T> acquire(function: () -> T): T {

@@ -7,8 +7,6 @@ class TokenBucketRateLimiter(
 ) : RateLimiter {
     private val bucket = AtomicInteger(capacity)
     private val lock = ReentrantLock()
-
-    @Volatile
     private var lastRefillTime = System.currentTimeMillis()
 
     override fun <T> acquire(function: () -> T): T {
