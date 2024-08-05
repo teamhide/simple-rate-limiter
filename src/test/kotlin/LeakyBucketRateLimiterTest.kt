@@ -2,21 +2,23 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 
-class TokenBucketRateLimiterTest : BehaviorSpec({
-    Given("버킷에 토큰이 모두 소진되었을 때") {
-        val rateLimiter = TokenBucketRateLimiter(capacity = 0, refillRateSeconds = 10)
+class LeakyBucketRateLimiterTest : BehaviorSpec({
+    Given("잔여 할당량이 없을 때") {
+        val rateLimiter = LeakyBucketRateLimiter(capacity = 0, leakRatePerSecond = 1)
 
         When("새로운 요청이 들어오면") {
             Then("예외가 발생한다") {
                 shouldThrow<RateLimitException> {
-                    rateLimiter.acquire { run() }
+                    rateLimiter.acquire {
+                        run()
+                    }
                 }
             }
         }
     }
 
-    Given("버킷에 잔여 토큰이 존재할 때") {
-        val rateLimiter = TokenBucketRateLimiter(capacity = 2, refillRateSeconds = 10)
+    Given("잔여 할당량이 있을 때") {
+        val rateLimiter = LeakyBucketRateLimiter(capacity = 10, leakRatePerSecond = 10)
 
         When("새로운 요청이 들어오면") {
             val sut1 = rateLimiter.acquire {

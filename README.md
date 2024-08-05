@@ -1,7 +1,7 @@
 ## Simple Rate Limiter
 
 For practice, make your own rate limiter!
-- Token bucket
-- Leaky bucket
+- [Token bucket](https://github.com/teamhide/simple-rate-limiter/blob/main/src/main/kotlin/TokenBucketRateLimiter.kt)
+- [Leaky bucket](https://github.com/teamhide/simple-rate-limiter/blob/main/src/main/kotlin/LeakyBucketRateLimiter.kt)
 - Fixed window
 - Sliding window
