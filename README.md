@@ -29,7 +29,7 @@ Cons
 - 예제 1: 분당 10개의 제한일 때 유저가 0:59에 10개의 메시지를 받고 1:01에 10개의 메시지를 받을 수 있다.
 - 예제 2: 분당 10개의 제한일 때 요청이 10:00:30에 시작하여 10:00:59에 끝났다면 추가 요청들은 10:01:29까지 허용되지 않는다. 10:00:30에 요청이 시작되었기 때문에 추가 요청에 대한 한도는 1분 이후인 10:01:29에 초기화된다.
 
-### Sliding window logs
+### [Sliding window logs](https://github.com/teamhide/simple-rate-limiter/blob/main/src/main/kotlin/SlidingWindowLogRateLimiter.kt)
 Pros
 - 요청이 정확히 언제 발생했는지를 기록하고 그에 기반하여 판단하기 때문에 매우 정밀하게 요청을 제어할 수 있다.  
 
