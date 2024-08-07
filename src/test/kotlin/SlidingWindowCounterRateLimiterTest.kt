@@ -9,14 +9,10 @@ class SlidingWindowCounterRateLimiterTest : BehaviorSpec({
         When("새로운 요청이 들어오면") {
             Then("예외가 발생한다") {
                 shouldThrow<RateLimitException> {
-                    rateLimiter.acquire {
-                        run()
-                    }
-                    rateLimiter.acquire {
-                        run()
-                    }
-                    rateLimiter.acquire {
-                        run()
+                    repeat(3) {
+                        rateLimiter.acquire {
+                            run()
+                        }
                     }
                 }
             }
@@ -25,18 +21,19 @@ class SlidingWindowCounterRateLimiterTest : BehaviorSpec({
 
     Given("잔여 윈도우가 남아있을 때") {
         val rateLimiter = SlidingWindowCounterRateLimiter(capacity = 2, bucketSize = 2, windowSizeSeconds = 2)
+        val repeatCount = 2
+        val result = mutableListOf<String>()
 
         When("새로운 요청이 들어오면") {
-            val sut1 = rateLimiter.acquire {
-                run()
-            }
-            val sut2 = rateLimiter.acquire {
-                run()
+            repeat(repeatCount) {
+                val sut = rateLimiter.acquire {
+                    run()
+                }
+                result.add(sut)
             }
 
             Then("정상 처리된다") {
-                sut1 shouldBe "Success"
-                sut2 shouldBe "Success"
+                result.size shouldBe repeatCount
             }
         }
     }

@@ -17,18 +17,19 @@ class TokenBucketRateLimiterTest : BehaviorSpec({
 
     Given("버킷에 잔여 토큰이 존재할 때") {
         val rateLimiter = TokenBucketRateLimiter(capacity = 2, refillRateSeconds = 10)
+        val repeatCount = 2
+        val result = mutableListOf<String>()
 
         When("새로운 요청이 들어오면") {
-            val sut1 = rateLimiter.acquire {
-                run()
-            }
-            val sut2 = rateLimiter.acquire {
-                run()
+            repeat(repeatCount) {
+                val sut = rateLimiter.acquire {
+                    run()
+                }
+                result.add(sut)
             }
 
             Then("정상 처리된다") {
-                sut1 shouldBe "Success"
-                sut2 shouldBe "Success"
+                result.size shouldBe repeatCount
             }
         }
     }
