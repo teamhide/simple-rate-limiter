@@ -2,7 +2,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.locks.ReentrantLock
 
-class SlidingWindowRateLimiter(
+class SlidingWindowCounterRateLimiter(
     private val capacity: Int,
     private val windowSizeSeconds: Int,
     bucketSize: Int,
